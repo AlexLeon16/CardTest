@@ -1,8 +1,6 @@
 name: Java CI with Gradle
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build:
@@ -17,8 +15,11 @@ jobs:
           distribution: temurin
           java-version: '11'
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Start SUT
         run: java -jar ./artifacts/app-order.jar &
 
-      - name: Build with Gradle
+      - name: Run tests
         run: ./gradlew test --info
